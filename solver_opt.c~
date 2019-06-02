@@ -1,0 +1,33 @@
+/*
+ * Tema 2 ASC
+ * 2019 Spring
+ * Catalin Olaru / Vlad Spoiala
+ */
+#include "utils.h"
+#include<cblas.h>
+
+/*
+ * Add your optimized implementation here
+ */
+double* my_solver(int N, double *A, double* B) {
+	
+	int i, j, k; 
+	
+	for (int i = 0; i < N; i++) {
+        	double *origin_pA = &A[i * N];
+        	for (int j = 0; j < N; j++) {
+            		double *pA = origin_pA;
+            		double *pB = &B[j];
+            		register double sum = 0.0;
+            		for (int k = 0; k < N; k++) {
+                		sum += *pA * *pB;
+                		pA++;
+               		        pB += N;
+            		}
+           		C[i * N + j] = sum;
+            	}
+    	}
+    	
+	printf("OPT SOLVER\n");
+	return NULL;	
+}

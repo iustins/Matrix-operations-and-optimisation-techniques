@@ -1,0 +1,34 @@
+/*
+ * Tema 2 ASC
+ * 2019 Spring
+ * Catalin Olaru / Vlad Spoiala
+ */
+#include "utils.h"
+#include<cblas.h>
+
+/* 
+ * Add your BLAS implementation here
+ */
+double* my_solver(int N, double *A, double *B) {
+	
+	double* C = malloc(N * N * sizeof(double)); 
+	double* rez = calloc(N * N, sizeof(double));
+	
+	C = cblas_dgemm(CblasRowMajor, CblasTrans, CblasNoTrans, N, N, N, 1.0, B, N, A, N, 0.0, C, N);
+	C = cblas_dgemm(CblasRowMajor, CblasTrans, CblasNoTrans, N, N, N, 1.0, A, N, B, N, 1.0, C, N);
+	
+	for(i = 0; i < N; i++)
+		for(j = i; i < N; i++)
+			rez[i * N + j] = C[i * N +j];
+	
+	C = rez;
+	C = cblas_dgemm(CblasRowMajor, CblasNoTrans, CblasNoTrans, N, N, N, 1.0, C, N, C, N, 0.0, C, N);				
+	
+	free(C);
+	free(rez);
+	
+	return rez;
+	
+	printf("BLAS SOLVER\n");
+	return NULL;
+}
