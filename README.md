@@ -1,1 +1,1 @@
-# Matrix operations and optimization techniques
+# Matrix operations and optimisation techniques
